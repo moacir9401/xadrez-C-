@@ -50,6 +50,16 @@
             return true;
         }
 
+        public Peca retirarPeca(Posicao pos)
+        {
+            if (peca(pos) == null) return null;
+
+            Peca aux = peca(pos);
+            pecas[pos.linha, pos.coluna] = null;
+            return aux;
+            aux.posicao = null;
+
+        }
         public void validaPosicao(Posicao pos)
         {
             if (!posicaoValida(pos))
