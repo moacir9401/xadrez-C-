@@ -8,25 +8,21 @@ namespace Xadrez
     {
         static void Main(string[] args)
         {
-            try
+            var partida = new PartidaDeXadrez();
+
+            Tela.imrpimirTabuleiro(partida.tab);
+
+            while (!partida.terminada)
             {
-                var partida = new PartidaDeXadrez();
-
-                Tela.imrpimirTabuleiro(partida.tab);
-
-                while (!partida.terminada)
+                try
                 {
                     Console.Clear();
-                    Tela.imrpimirTabuleiro(partida.tab);
-
-                    Console.WriteLine();
-                    Console.WriteLine($"Turno: {partida.turno}");
-                    Console.WriteLine($"Aguardando jogada: {partida.jogadorAtual}");
+                    Tela.ImprimirPartida(partida);
 
 
                     Console.Write("Digite a posicao de origem: ");
                     Posicao origem = Tela.lerPosicaoXadrez().toPosicao();
-                    partida.validarPosicaoOrigem(origem); 
+                    partida.validarPosicaoOrigem(origem);
 
                     bool[,] posicoesPossiveis = partida.tab.peca(origem).movimentosPossiveis();
 
@@ -40,11 +36,11 @@ namespace Xadrez
 
                     partida.RealizaJogada(origem, destino);
                 }
-            }
-            catch (TabuleiroExceptions e)
-            {
+                catch (TabuleiroExceptions e)
+                {
 
-                 Console.WriteLine(e.Message);
+                    Console.WriteLine(e.Message);
+                }
             }
 
             Console.ReadKey();
